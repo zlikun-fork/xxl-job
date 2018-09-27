@@ -16,7 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.util.StringUtils;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -150,7 +152,8 @@ public class XxlJobExecutor implements ApplicationContextAware {
     public static IJobHandler loadJobHandler(String name){
         return jobHandlerRepository.get(name);
     }
-    private static void initJobHandlerRepository(ApplicationContext applicationContext){
+
+    private static void initJobHandlerRepository(ApplicationContext applicationContext) {
         if (applicationContext == null) {
             return;
         }
@@ -158,10 +161,18 @@ public class XxlJobExecutor implements ApplicationContextAware {
         // init job handler action
         Map<String, Object> serviceBeanMap = applicationContext.getBeansWithAnnotation(JobHandler.class);
 
-        if (serviceBeanMap!=null && serviceBeanMap.size()>0) {
+        if (serviceBeanMap != null && serviceBeanMap.size() > 0) {
             for (Object serviceBean : serviceBeanMap.values()) {
-                if (serviceBean instanceof IJobHandler){
-                    String name = serviceBean.getClass().getAnnotation(JobHandler.class).value();
+                if (serviceBean instanceof IJobHandler) {
+                    JobHandler annotation = serviceBean.getClass().getAnnotation(JobHandler.class);
+                    String name;
+                    if (annotation != null && StringUtils.hasLength(annotation.value())) {
+                        // 存在注解，且配置了名称，则使用注解配置的名称
+                        name = annotation.value();
+                    } else {
+                        // 否则使用类全名
+                        name = serviceBean.getClass().getCanonicalName();
+                    }
                     IJobHandler handler = (IJobHandler) serviceBean;
                     if (loadJobHandler(name) != null) {
                         throw new RuntimeException("xxl-job jobhandler naming conflicts.");
