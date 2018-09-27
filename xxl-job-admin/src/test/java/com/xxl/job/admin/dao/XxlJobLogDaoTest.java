@@ -4,23 +4,23 @@ import com.xxl.job.admin.core.model.XxlJobLog;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath*:spring/applicationcontext-*.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class XxlJobLogDaoTest {
 
     @Resource
     private XxlJobLogDao xxlJobLogDao;
 
     @Test
-    public void test(){
+    public void test() {
         List<XxlJobLog> list = xxlJobLogDao.pageList(0, 10, 1, 1, null, null, 1);
         int list_count = xxlJobLogDao.pageListCount(0, 10, 1, 1, null, null, 1);
 
