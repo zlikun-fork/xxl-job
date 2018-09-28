@@ -166,11 +166,10 @@ public class XxlJobExecutor implements ApplicationContextAware {
                 if (serviceBean instanceof IJobHandler) {
                     JobHandler annotation = serviceBean.getClass().getAnnotation(JobHandler.class);
                     String name;
-                    if (annotation != null && StringUtils.hasLength(annotation.value())) {
-                        // 存在注解，且配置了名称，则使用注解配置的名称
+                    // 以配置为主，未配置则使用全类名
+                    if (StringUtils.hasLength(annotation.value())) {
                         name = annotation.value();
                     } else {
-                        // 否则使用类全名
                         name = serviceBean.getClass().getCanonicalName();
                     }
                     IJobHandler handler = (IJobHandler) serviceBean;
