@@ -47,7 +47,7 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
 	// accessToken
     private static String accessToken;
     public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+        XxlJobDynamicScheduler.accessToken = accessToken;
     }
 
     // dao

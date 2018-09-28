@@ -35,7 +35,7 @@ public class SchedulerConfigure {
         return factoryBean;
     }
 
-    @Bean
+    @Bean(initMethod = "init", destroyMethod = "destroy")
     public XxlJobDynamicScheduler jobDynamicScheduler(@Value("${xxl.job.accessToken}") String accessToken) {
         XxlJobDynamicScheduler scheduler = new XxlJobDynamicScheduler();
         scheduler.setScheduler(schedulerFactoryBean().getObject());

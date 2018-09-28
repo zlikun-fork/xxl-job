@@ -65,7 +65,7 @@ public class XxlJobExecutor implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+        XxlJobExecutor.applicationContext = applicationContext;
     }
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
