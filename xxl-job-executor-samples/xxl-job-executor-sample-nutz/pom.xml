@@ -14,16 +14,15 @@
     <dependencies>
         <!-- nutz -->
         <dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutz</artifactId>
-			<version>1.r.62</version>
-		</dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutz</artifactId>
+            <version>1.r.62</version>
+        </dependency>
 
         <!-- slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j-api.version}</version>
         </dependency>
 
         <!-- xxl-job -->
